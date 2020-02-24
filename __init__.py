@@ -243,7 +243,7 @@ class HelloPrint(MycroftSkill):
 
     @intent_file_handler('print.picture.intent')
     def handle_print_picture(self, message):
-        self.enclosure.print_file("/home/yesca/spike1/fig.txt")
+        self.enclosure.print_file("/opt/mycroft/skills/hello-print-skill/house.txt")
         self.speak_dialog('print.picture')
 
 
