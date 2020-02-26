@@ -9,6 +9,7 @@ from mycroft.util.log import LOG
 from time import sleep
 import smtplib
 from email.message import EmailMessage
+from mycroft.skills.settings import SkillSettings
 
 ul = b'\xC9'.decode('CP850')
 um = b'\xCB'.decode('CP850')
@@ -218,7 +219,15 @@ class HelloPrint(MycroftSkill):
         self.enclosure.print_text(puzzle)
 
         solution = self.getXwordMail(data)
-        self.send_mail_text(['marcello.yesca@gmail.com'], data['title'], solution)
+
+        mailto = []
+        s_email = self.settings.get('email')
+        if s_email is not None:
+            mailto.append(s_email)
+        else:
+            mailto.append('yesca@outlook.com')
+
+        self.send_mail_text(mailto, data['title'], solution)
 
         self.speak_dialog('print.xword')
 
